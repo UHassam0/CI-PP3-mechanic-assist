@@ -288,9 +288,9 @@ def avg_mileage():
 
 def mots_soon():
     """
-    Present list of upcoming MOTs due in next 12 weeks
+    Present list of upcoming MOTs due in next 8 weeks
     """
-    print('Getting data for MOTs due in the next 12 weeks...\n')
+    print('Getting data for MOTs due in the next 8 weeks...\n')
     today = datetime.now().date()
     eight_weeks = today + timedelta(days=84)
 
@@ -304,6 +304,28 @@ def mots_soon():
                 mots_due.append(row)
     table_head = SHEET.worksheet('Customer-Information').row_values(1)
     print(tabulate(mots_due, headers=table_head))
+    update(mots_due)
+
+
+def update(mots_booked):
+    """
+    Get and validate cust ID to update spreadsheet to indicate MOT booked
+    """
+    while True:
+
+        cust_id = input('/nEnter id of customer booked in: ')
+        
+        ids_due = []
+
+        for row in mots_booked:
+            ids_due.append(row[0])
+
+
+        if cust_id in ids_due:
+            SHEET.worksheet('Customer-Information').update_cell(int(cust_id) + 1, 9, 'Y')
+            break            
+        else:
+            print('that is not one of the IDs above')
 
 
 def query():
