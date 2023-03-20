@@ -1,4 +1,5 @@
 import re
+from tabulate import tabulate
 from datetime import datetime, timedelta
 import statistics
 import gspread
@@ -285,14 +286,35 @@ def avg_mileage():
     return round(avg_mileage)
 
 
+def mots_soon():
+    """
+    Present list of upcoming MOTs due in next 12 weeks
+    """
+    print('Getting data for MOTs due in the next 12 weeks...\n')
+    today = datetime.now().date()
+    twelve_weeks = today + timedelta(days=84)
+
+    all_customers = SHEET.worksheet('Customer-Information').get_all_values()
+
+    mots_due = []
+    for row in all_customers:
+        if row[7] != 'Next MOT due' and row[8] != 'Y':
+            date = datetime.strptime(row[7], '%d/%m/%Y').date() 
+            if today <= date <= twelve_weeks:
+                mots_due.append(row)
+    table_head = SHEET.worksheet('Customer-Information').row_values(1)
+    print(tabulate(mots_due, headers=table_head))
+
+
 def query():
-    print('You have chosen to query the stored data')
+    print('You have chosen to query the stored data\n')
     model = top_model()
     age = average_age()
     mileage = avg_mileage()
     print(f'The most common model amongst our customers is: {model}')
     print(f'The average car age amongst our customers is: {age}')
-    print(f'The average car mileage amongst our customers is: {mileage}')
+    print(f'The average car mileage amongst our customers is: {mileage}\n')
+    mots_soon()
 
 
 query()
