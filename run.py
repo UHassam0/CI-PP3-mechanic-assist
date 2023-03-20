@@ -251,6 +251,15 @@ def survey():
     car_mileage = get_mileage(car_age)
     next_mot = get_mot()
 
+    print('adding data to database...')
+    current_values = SHEET.worksheet('Customer-Information').get_all_values()
+    latest_id = current_values[-1][0]
+    data = [int(latest_id) + 1, customer_name, customer_phone, car_make, car_model, car_age, car_mileage, next_mot]
+    SHEET.worksheet('Customer-Information').append_row(data)
+    print('Data Added')
+
+
+
 
 def top_model():
     """
