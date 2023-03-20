@@ -321,8 +321,9 @@ def update(mots_booked):
     Get and validate cust ID to update spreadsheet to indicate MOT booked
     """
     while True:
-
-        cust_id = input('/nEnter id of customer booked in: ')
+        print()
+        cust_id = input('Enter id of customer booked in.\n' +
+                        'Or enter M to return to main menu: ')
         
         ids_due = []
 
@@ -332,9 +333,11 @@ def update(mots_booked):
 
         if cust_id in ids_due:
             SHEET.worksheet('Customer-Information').update_cell(int(cust_id) + 1, 9, 'Y')
-            break            
-        else:
-            print('that is not one of the IDs above')
+            break
+        elif cust_id.upper() == 'M':
+            break
+        print('That is not one of the IDs above. \n\
+              Try again or enter M to return to main menu')
 
 
 def query():
