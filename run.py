@@ -292,7 +292,7 @@ def mots_soon():
     """
     print('Getting data for MOTs due in the next 12 weeks...\n')
     today = datetime.now().date()
-    twelve_weeks = today + timedelta(days=84)
+    eight_weeks = today + timedelta(days=84)
 
     all_customers = SHEET.worksheet('Customer-Information').get_all_values()
 
@@ -300,7 +300,7 @@ def mots_soon():
     for row in all_customers:
         if row[7] != 'Next MOT due' and row[8] != 'Y':
             date = datetime.strptime(row[7], '%d/%m/%Y').date() 
-            if today <= date <= twelve_weeks:
+            if today <= date <= eight_weeks:
                 mots_due.append(row)
     table_head = SHEET.worksheet('Customer-Information').row_values(1)
     print(tabulate(mots_due, headers=table_head))
