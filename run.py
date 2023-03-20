@@ -91,7 +91,9 @@ def validate_make(make_name):
     Validate customer car make against spreadsheet
     """
 
-    if SHEET_CARS.worksheet('Complete List of Car Brands').find(make_name, None, None, False) is None:
+    if SHEET_CARS.worksheet('Complete List of Car Brands').find(
+        make_name, None, None, False
+        ) is None:
         print('Make not accepted please check format and try again')
         return False
 
@@ -158,17 +160,57 @@ def validate_age(car_age):
     return True
 
 
+def get_mileage(car_age):
+    """
+    get car mileage
+    """
+    while True:
+        mileage = input('Car Mileage: ')
+
+        if validate_mileage(mileage, car_age):
+            print('Mileage valid and accepted')
+            break
+
+    return mileage
+
+
+def validate_mileage(mile_number, car_age):
+    """
+    validate mileage as number and request confirmation if 
+    beyond 10% of average for age
+    """
+    try:
+        mileage = int(mile_number)
+    except ValueError:
+        print('mileage must be a number')
+        return False
+
+    average_mileage = int(car_age) * 10000
+    if mileage <= average_mileage * 1.1 and mileage >= average_mileage * 0.9:
+        return True
+    else:
+        sure = input('Mileage is outside average range. Are you sure? Y/N ')
+        if sure.upper() == 'Y':
+            print('you have chosen to input non-average mileage')
+            return True
+        else:
+            print('try again')
+            return False
+
+
 def survey():
     """
     Gather data for survey and then append to list and google sheet
     """
     print('You have chosen to complete a survey...')
-    print('Please fill in the details below. Each will be validated one at a time')
+    print(
+      'Please fill in the details below. Each will be validated one at a time'
+        )
     customer_name = get_name().title()
     customer_phone = get_phone()
     car_make = get_make().capitalize()
     car_model = get_model(car_make)
     car_age = get_age()
-
+    car_mileage = get_mileage(car_age)
 
 survey()
