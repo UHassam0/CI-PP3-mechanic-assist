@@ -1,5 +1,6 @@
 import re
 from datetime import datetime, timedelta
+import statistics
 import gspread
 from google.oauth2.service_account import Credentials
 
@@ -262,4 +263,16 @@ def average_age():
     return round(average_age, 1)
 
 
-average_age()
+def top_model():
+    """
+    Calculate most popular car model
+    """
+    models = SHEET.worksheet('Customer-Information').col_values(5)
+    model_popular = statistics.mode(models)
+    print(top_model)
+
+
+def query():
+    age = average_age()
+    model = top_model()
+
