@@ -36,8 +36,8 @@ def validate_name(name):
     """
     try:
         str(name)
-        if len(name.strip()) < 3:
-            print('Must input name at least 2 letters')
+        if len(name.strip()) < 2:
+            print('Input name must be at least 2 letters')
             return False
     except ValueError:
         print('Must input name with regular characters. Check formatting')
@@ -98,6 +98,36 @@ def validate_make(make_name):
     return True
 
 
+def get_model(make):
+    """
+    Get customer car model 
+    """
+    while True:
+        model = input('Car Model: ')
+
+        if validate_model(model, make):
+            print('model accepted')
+            break
+
+    return model
+
+
+def validate_model(model_name, make):
+    """
+    Validate car model against worksheet for the make selected
+    """
+    make_caps = make.capitalize()
+
+    if SHEET_CARS.worksheet(make_caps).find(
+        f'{make_caps} {model_name.capitalize()}'
+        ) is None:
+        print('Model not accepted please check format and try again')
+        return False
+
+    return True
+
+
+
 def survey():
     """
     Gather data for survey and then append to list and google sheet
@@ -106,6 +136,7 @@ def survey():
     customer_name = get_name().title()
     customer_phone = get_phone()
     car_make = get_make().capitalize()
+    car_model = get_model(car_make)
 
 
 survey()
