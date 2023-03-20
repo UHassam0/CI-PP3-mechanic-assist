@@ -71,3 +71,41 @@ def validate_phone(number):
         return False
 
     return True
+
+
+def get_make():
+    """
+    Get customer car make
+    """
+    while True:
+        make = input('Car Make: ')
+
+        if validate_make(make):
+            print('make accepted')
+            break
+    return make
+
+
+def validate_make(make_name):
+    """
+    Validate customer car make against spreadsheet
+    """
+
+    if SHEET_CARS.worksheet('Complete List of Car Brands').find(make_name, None, None, False) is None:
+        print('Make not accepted please check format and try again')
+        return False
+
+    return True
+
+
+def survey():
+    """
+    Gather data for survey and then append to list and google sheet
+    """
+    print('You have chosen to complete a survey...')
+    customer_name = get_name().title()
+    customer_phone = get_phone()
+    car_make = get_make().capitalize()
+
+
+survey()
