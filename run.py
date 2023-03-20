@@ -248,6 +248,18 @@ def survey():
     car_age = get_age()
     car_mileage = get_mileage(car_age)
     next_mot = get_mot()
-    
 
-survey()
+
+def average_age():
+    """
+    Calculate average age of cars in spreadsheet
+    """
+    age_list = SHEET.worksheet('Customer-Information').col_values(6)
+    del age_list[0]
+    age_ints = [int(age) for age in age_list]
+    average_age = sum(age_ints) / len(age_ints)
+    
+    return round(average_age, 1)
+
+
+average_age()
