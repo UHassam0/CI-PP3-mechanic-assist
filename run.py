@@ -1,3 +1,4 @@
+import re
 import gspread
 from google.oauth2.service_account import Credentials
 
@@ -14,18 +15,20 @@ GSPREAD_CLIENT = gspread.authorize(SCOPED_CREDS)
 SHEET_CARS = GSPREAD_CLIENT.open('Car Models')
 SHEET = GSPREAD_CLIENT.open('Mechanic-Customers')
 
+
 def get_name():
     """
     Input function to get customer name
     """
     while True:
-     
+
         name = input('Customer Name: ')
-        
+
         if validate_name(name):
             break
-            
+
     return name
+
 
 def validate_name(name):
     """
@@ -41,4 +44,30 @@ def validate_name(name):
         return False
     return True
 
-get_name()
+
+def get_phone():
+    """
+    Input function to get customer phone number
+    """
+    while True:
+        phone = input('Customer Phone: ')
+
+        if validate_phone(phone):
+            print('number valid')
+            break
+    return phone
+
+
+def validate_phone(number):
+    """
+    Validates phone number according to UK standard landlines and mobiles
+    """
+    pattern = r"^\+44\d{10}$|^07\d{9}$|^01\d{9}$|^02\d{9}$"
+
+    regex = re.compile(pattern)
+
+    if not regex.match(number):
+        print('Number invalid. try again')
+        return False
+
+    return True
