@@ -251,6 +251,16 @@ def survey():
     next_mot = get_mot()
 
 
+def top_model():
+    """
+    Calculate most popular car model
+    """
+    models = SHEET.worksheet('Customer-Information').col_values(5)
+    model_popular = statistics.mode(models)
+
+    return model_popular
+
+
 def average_age():
     """
     Calculate average age of cars in spreadsheet
@@ -263,16 +273,27 @@ def average_age():
     return round(average_age, 1)
 
 
-def top_model():
+def avg_mileage():
     """
-    Calculate most popular car model
+    Calculate average mileage of cars in spreadsheet
     """
-    models = SHEET.worksheet('Customer-Information').col_values(5)
-    model_popular = statistics.mode(models)
-    print(top_model)
+    mileage_list = SHEET.worksheet('Customer-Information').col_values(7)
+    del mileage_list[0]
+    mileage_ints = [int(mileage) for mileage in mileage_list]
+    avg_mileage = sum(mileage_ints) / len(mileage_ints)
+    
+    return round(avg_mileage)
 
 
 def query():
-    age = average_age()
+    print('You have chosen to query the stored data')
     model = top_model()
+    age = average_age()
+    mileage = avg_mileage()
+    print(f'The most common model amongst our customers is: {model}')
+    print(f'The average car age amongst our customers is: {age}')
+    print(f'The average car mileage amongst our customers is: {mileage}')
+
+
+query()
 
