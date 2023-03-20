@@ -127,16 +127,48 @@ def validate_model(model_name, make):
     return True
 
 
+def get_age():
+    """
+    Get car age
+    """
+    while True:
+        age = input('Car Age (in years as a whole number): ')
+
+        if validate_age(age):
+            print('Age accepted')
+            break
+    return age
+
+
+def validate_age(car_age):
+    """
+    Validate car age as whole number under 30
+    """
+    try:
+        age = int(car_age)
+        if age >= 0 and age <= 30:
+            return True
+        else:
+            print('Car age must be between 1 and 30')
+            return False
+    except ValueError:
+        print('Car age must be whole number as number not letters')
+        return False
+        
+    return True
+
 
 def survey():
     """
     Gather data for survey and then append to list and google sheet
     """
     print('You have chosen to complete a survey...')
+    print('Please fill in the details below. Each will be validated one at a time')
     customer_name = get_name().title()
     customer_phone = get_phone()
     car_make = get_make().capitalize()
     car_model = get_model(car_make)
+    car_age = get_age()
 
 
 survey()
