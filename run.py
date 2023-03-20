@@ -1,4 +1,5 @@
 import re
+from datetime import datetime, timedelta
 import gspread
 from google.oauth2.service_account import Credentials
 
@@ -198,6 +199,40 @@ def validate_mileage(mile_number, car_age):
             return False
 
 
+def get_mot():
+    """
+    Get Next MOT due date
+    """
+    while True:
+        mot_date = input('Next MOT Due Date (DD/MM/YYYY): ')
+
+        if validate_mot(mot_date):
+            print('Date Accepted')
+            break
+
+    return mot_date
+
+
+def validate_mot(date):
+    """
+    Validate MOT date as date within the next year
+    """
+    try:
+        next_mot = datetime.strptime(date, '%d/%m/%Y')
+    except ValueError:
+        print('Date invalid. Try again')
+        return False
+
+    today = datetime.now().date()
+    next_year = today + timedelta(days=365)
+
+    if next_mot.date() < today or next_mot.date() > next_year:
+        print('Date must be within the next year')
+        return False
+
+    return True
+
+
 def survey():
     """
     Gather data for survey and then append to list and google sheet
@@ -212,5 +247,7 @@ def survey():
     car_model = get_model(car_make)
     car_age = get_age()
     car_mileage = get_mileage(car_age)
+    next_mot = get_mot()
+    
 
 survey()
