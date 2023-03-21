@@ -1,35 +1,21 @@
-![CI logo](https://codeinstitute.s3.amazonaws.com/fullstack/ci_logo_small.png)
-
-Welcome UHassam0,
-
-This is the Code Institute student template for deploying your third portfolio project, the Python command-line project. The last update to this file was: **August 17, 2021**
-
-## Reminders
-
-* Your code must be placed in the `run.py` file
-* Your dependencies must be placed in the `requirements.txt` file
-* Do not edit any of the other files or your code may not deploy properly
-
-## Creating the Heroku app
-
-When you create the app, you will need to add two buildpacks from the _Settings_ tab. The ordering is as follows:
-
-1. `heroku/python`
-2. `heroku/nodejs`
-
-You must then create a _Config Var_ called `PORT`. Set this to `8000`
-
-If you have credentials, such as in the Love Sandwiches project, you must create another _Config Var_ called `CREDS` and paste the JSON into the value field.
-
-Connect your GitHub repository and deploy as normal.
-
-## Constraints
-
-The deployment terminal is set to 80 columns by 24 rows. That means that each line of text needs to be 80 characters or less otherwise it will be wrapped onto a second line.
-
------
-Happy coding!
-
 ## Features
+
+![flowchart](./flowchart.jpeg)
+
+ I conect to a google sheet called. 'Mechanic-Customers', there is a tab/sheet called 'Customer-Information'. The data is in columns headed: Name Phone Make Model Age Mileage Next MOT due Booked Y/N. I want a user to be choose whether they are inputting one ata time, sharing a google sheet, or querying the information. I want to validate each input. And I want to show the user most popular car make and most popular model and average age and mileage. I also want the user to see a list of MOTs due in 6 weeks that are not yet booked and be able to input any they book
+
+
 ## Testing
+
+Tested and passed through CI Python Linter
+
+Also passed input tests
+
+
 ## Deployment
+
+Deployed to Heroku using love sandwiches instructions
+
+## Credits
+
+I found the sheet to validate car make and model data against here: https://www.carmodelslist.com/car-manufacturers/
