@@ -96,7 +96,7 @@ def validate_make(make_name):
 
     if SHEET_CARS.worksheet('Complete List of Car Brands').find(
         make_name, None, None, False
-        ) is None:
+            ) is None:
         print('Make not accepted please check format and try again')
         return False
 
@@ -105,7 +105,7 @@ def validate_make(make_name):
 
 def get_model(make):
     """
-    Get customer car model 
+    Get customer car model
     """
     while True:
         model = input('Car Model: ')
@@ -125,7 +125,7 @@ def validate_model(model_name, make):
 
     if SHEET_CARS.worksheet(make_caps).find(
         f'{make_caps} {model_name.capitalize()}'
-        ) is None:
+            ) is None:
         print('Model not accepted please check format and try again')
         return False
 
@@ -159,7 +159,7 @@ def validate_age(car_age):
     except ValueError:
         print('Car age must be whole number as number not letters')
         return False
-        
+
     return True
 
 
@@ -278,7 +278,7 @@ def average_age():
     del age_list[0]
     age_ints = [int(age) for age in age_list]
     average_age = sum(age_ints) / len(age_ints)
-    
+
     return round(average_age, 1)
 
 
@@ -290,7 +290,7 @@ def avg_mileage():
     del mileage_list[0]
     mileage_ints = [int(mileage) for mileage in mileage_list]
     avg_mileage = sum(mileage_ints) / len(mileage_ints)
-    
+
     return round(avg_mileage)
 
 
@@ -307,7 +307,7 @@ def mots_soon():
     mots_due = []
     for row in all_customers:
         if row[7] != 'Next MOT due' and row[8] != 'Y':
-            date = datetime.strptime(row[7], '%d/%m/%Y').date() 
+            date = datetime.strptime(row[7], '%d/%m/%Y').date()
             if today <= date <= eight_weeks:
                 mots_due.append(row)
     table_head = SHEET.worksheet('Customer-Information').row_values(1)
@@ -324,15 +324,16 @@ def update(mots_booked):
         cust_id = input('\nYou can now call these customers to book MOTs.\n' +
                         'Enter id of customer booked in.\n' +
                         'Or enter M to return to main menu: ')
-   
+
         ids_due = []
 
         for row in mots_booked:
             ids_due.append(row[0])
 
-
         if cust_id in ids_due:
-            SHEET.worksheet('Customer-Information').update_cell(int(cust_id) + 1, 9, 'Y')
+            SHEET.worksheet('Customer-Information').update_cell(
+                int(cust_id) + 1, 9, 'Y'
+                )
             break
         elif cust_id.upper() == 'M':
             break
@@ -356,7 +357,7 @@ def query():
 
 def main():
     """
-    Set the top layer of the program for the user to 
+    Set the top layer of the program for the user to
     always loop through the various functions
     """
     print('Welcome to Mechanic Assist, where we help you record and query\n' +
