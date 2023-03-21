@@ -25,7 +25,7 @@ def get_name():
     """
     while True:
 
-        name = input('Customer Name: ')
+        name = input('Customer Name: \n')
 
         if validate_name(name):
             break
@@ -53,7 +53,7 @@ def get_phone():
     Input function to get customer phone number
     """
     while True:
-        phone = input('Customer Phone: ')
+        phone = input('Customer Phone: \n')
 
         if validate_phone(phone):
             print('Number valid')
@@ -81,7 +81,7 @@ def get_make():
     Get customer car make
     """
     while True:
-        make = input('Car Make: ')
+        make = input('Car Make: \n')
 
         if validate_make(make):
             print('Make accepted')
@@ -108,7 +108,7 @@ def get_model(make):
     Get customer car model
     """
     while True:
-        model = input('Car Model: ')
+        model = input('Car Model: \n')
 
         if validate_model(model, make):
             print('Model accepted')
@@ -137,7 +137,7 @@ def get_age():
     Get car age
     """
     while True:
-        age = input('Car Age (in years as a whole number): ')
+        age = input('Car Age (in years as a whole number): \n')
 
         if validate_age(age):
             print('Age accepted')
@@ -168,7 +168,7 @@ def get_mileage(car_age):
     Get car mileage
     """
     while True:
-        mileage = input('Car Mileage: ')
+        mileage = input('Car Mileage: \n')
 
         if validate_mileage(mileage, car_age):
             print('Mileage valid and accepted')
@@ -192,7 +192,7 @@ def validate_mileage(mile_number, car_age):
     if mileage <= average_mileage * 1.1 and mileage >= average_mileage * 0.9:
         return True
     else:
-        sure = input('Mileage is outside average range. Are you sure? Y/N ')
+        sure = input('Mileage is outside average range. Are you sure? Y/N \n')
         if sure.upper() == 'Y':
             print('You have chosen to input non-average mileage')
             return True
@@ -206,7 +206,7 @@ def get_mot():
     Get Next MOT due date
     """
     while True:
-        mot_date = input('Next MOT Due Date (DD/MM/YYYY): ')
+        mot_date = input('Next MOT Due Date (DD/MM/YYYY): \n')
 
         if validate_mot(mot_date):
             print('Date Accepted')
@@ -323,7 +323,7 @@ def update(mots_booked):
         print()
         cust_id = input('\nYou can now call these customers to book MOTs.\n' +
                         'Enter id of customer booked in.\n' +
-                        'Or enter M to return to main menu: ')
+                        'Or enter M to return to main menu: \n')
 
         ids_due = []
 
@@ -363,7 +363,7 @@ def main():
     print('Welcome to Mechanic Assist, where we help you record and query\n' +
           'customer data to get those MOTs booked in\n')
     while True:
-        selection = input('Press 1 to record customer info or 2 to query: ')
+        selection = input('Press 1 to record customer info or 2 to query: \n')
 
         if selection == '1':
             survey()
