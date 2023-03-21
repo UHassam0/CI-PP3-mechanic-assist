@@ -56,7 +56,7 @@ def get_phone():
         phone = input('Customer Phone: ')
 
         if validate_phone(phone):
-            print('number valid')
+            print('Number valid')
             break
     return phone
 
@@ -84,7 +84,7 @@ def get_make():
         make = input('Car Make: ')
 
         if validate_make(make):
-            print('make accepted')
+            print('Make accepted')
             break
     return make
 
@@ -111,7 +111,7 @@ def get_model(make):
         model = input('Car Model: ')
 
         if validate_model(model, make):
-            print('model accepted')
+            print('Model accepted')
             break
 
     return model
@@ -165,7 +165,7 @@ def validate_age(car_age):
 
 def get_mileage(car_age):
     """
-    get car mileage
+    Get car mileage
     """
     while True:
         mileage = input('Car Mileage: ')
@@ -179,13 +179,13 @@ def get_mileage(car_age):
 
 def validate_mileage(mile_number, car_age):
     """
-    validate mileage as number and request confirmation if 
+    Validate mileage as number and request confirmation if
     beyond 10% of average for age
     """
     try:
         mileage = int(mile_number)
     except ValueError:
-        print('mileage must be a number')
+        print('Mileage must be a number')
         return False
 
     average_mileage = int(car_age) * 10000
@@ -194,10 +194,10 @@ def validate_mileage(mile_number, car_age):
     else:
         sure = input('Mileage is outside average range. Are you sure? Y/N ')
         if sure.upper() == 'Y':
-            print('you have chosen to input non-average mileage')
+            print('You have chosen to input non-average mileage')
             return True
         else:
-            print('try again')
+            print('Try again')
             return False
 
 
@@ -239,7 +239,7 @@ def survey():
     """
     Gather data for survey and then append to list and google sheet
     """
-    print('You have chosen to complete a survey...')
+    print('You have chosen to complete a survey...\n')
     print(
       'Please fill in the details below. Each will be validated one at a time'
         )
@@ -251,14 +251,13 @@ def survey():
     car_mileage = get_mileage(car_age)
     next_mot = get_mot()
 
-    print('adding data to database...')
+    print('\nAdding data to database...\n')
     current_values = SHEET.worksheet('Customer-Information').get_all_values()
     latest_id = current_values[-1][0]
-    data = [int(latest_id) + 1, customer_name, customer_phone, car_make, car_model, car_age, car_mileage, next_mot]
+    data = [int(latest_id) + 1, customer_name, customer_phone,
+            car_make, car_model, car_age, car_mileage, next_mot]
     SHEET.worksheet('Customer-Information').append_row(data)
-    print('Data Added')
-
-
+    print('Data Added\n')
 
 
 def top_model():
@@ -322,9 +321,10 @@ def update(mots_booked):
     """
     while True:
         print()
-        cust_id = input('Enter id of customer booked in.\n' +
+        cust_id = input('\nYou can now call these customers to book MOTs.\n' +
+                        'Enter id of customer booked in.\n' +
                         'Or enter M to return to main menu: ')
-        
+   
         ids_due = []
 
         for row in mots_booked:
@@ -336,11 +336,14 @@ def update(mots_booked):
             break
         elif cust_id.upper() == 'M':
             break
-        print('That is not one of the IDs above. \n\
-              Try again or enter M to return to main menu')
+        print('That is not one of the IDs above.\n' +
+              'Try again or enter M to return to main menu')
 
 
 def query():
+    """
+    Combine the various functions to get data and print to terminal
+    """
     print('You have chosen to query the stored data\n')
     model = top_model()
     age = average_age()
@@ -351,5 +354,22 @@ def query():
     mots_soon()
 
 
-query()
+def main():
+    """
+    Set the top layer of the program for the user to 
+    always loop through the various functions
+    """
+    print('Welcome to Mechanic Assist, where we help you record and query\n' +
+          'customer data to get those MOTs booked in\n')
+    while True:
+        selection = input('Press 1 to record customer info or 2 to query: ')
 
+        if selection == '1':
+            survey()
+        elif selection == '2':
+            query()
+        else:
+            print('Sorry input not recognised try again. Must be 1 or 2')
+
+
+main()
