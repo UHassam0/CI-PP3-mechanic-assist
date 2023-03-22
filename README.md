@@ -35,7 +35,7 @@ The feedback for incorrect phone numbers is lacking
 
 ## Deployment
 
-Deployed to Heroku using love sandwiches instructions. Deployed well with no issues
+Deployed to Heroku using love sandwiches instructions. Deployed well with no issues. Link to deployed project: https://ci-pp3-mechanic-assist.herokuapp.com/
 
 ## Credits
 
